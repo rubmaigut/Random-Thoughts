@@ -1,7 +1,13 @@
 import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { SessionDetails, UserDetails } from "./dashboard/details";
-import Link from "next/link";
+import { postMessage } from "./helpers/apiService";
+import dynamic from "next/dynamic";
+
+const PostThoughtFormWithNoSSR = dynamic(
+  () => import("../components/PostThoughtForm"),
+  { ssr: false }
+);
 
 export default async function DashboardPage() {
   const { userId } = auth();
@@ -11,6 +17,13 @@ export default async function DashboardPage() {
   }
 
   const user = await clerkClient.users.getUser(userId);
+
+  const handlePostMessage = (messageContent: string) => {
+    const newMessage = { ThoughtContent: messageContent };
+    postMessage(newMessage)
+      .then((response) => {})
+      .catch((error) => console.error("Error posting message", error));
+  };
 
   return (
     <div className="px-8 py-12 sm:py-16 md:px-20">
@@ -23,17 +36,15 @@ export default async function DashboardPage() {
             <UserDetails />
             <SessionDetails />
           </div>
-          <h2 className="mt-16 mb-4 text-3xl font-semibold text-black">
-            What's next?
-          </h2>
-          Read the{" "}
-          <Link
-            className="font-medium text-primary-600 hover:underline"
-            href="https://clerk.com/docs?utm_source=vercel-template&utm_medium=template_repos&utm_campaign=nextjs_template"
-            target="_blank"
-          >
-            Clerk Docs -&gt;
-          </Link>
+          <div>
+            <div className="flex p-4">
+              <h3 className="text-xl leading-6 font-semibold text-gray-900 my-auto">
+                New Thought
+              </h3>
+            </div>
+            <PostThoughtFormWithNoSSR userId={user.firstName || " Developer"} />
+            
+          </div>
         </>
       )}
     </div>
