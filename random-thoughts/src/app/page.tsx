@@ -1,8 +1,8 @@
 import { auth, clerkClient } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { SessionDetails, UserDetails } from "./dashboard/details";
-import { postMessage } from "./helpers/apiService";
 import dynamic from "next/dynamic";
+import ThoughtList from "@/components/ThoughtList";
 
 const PostThoughtFormWithNoSSR = dynamic(
   () => import("../components/PostThoughtForm"),
@@ -17,13 +17,6 @@ export default async function DashboardPage() {
   }
 
   const user = await clerkClient.users.getUser(userId);
-
-  const handlePostMessage = (messageContent: string) => {
-    const newMessage = { ThoughtContent: messageContent };
-    postMessage(newMessage)
-      .then((response) => {})
-      .catch((error) => console.error("Error posting message", error));
-  };
 
   return (
     <div className="px-8 py-12 sm:py-16 md:px-20">
@@ -43,7 +36,7 @@ export default async function DashboardPage() {
               </h3>
             </div>
             <PostThoughtFormWithNoSSR userId={user.firstName || " Developer"} />
-            
+            <ThoughtList/>
           </div>
         </>
       )}
