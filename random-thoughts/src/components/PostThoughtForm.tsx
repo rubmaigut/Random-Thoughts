@@ -39,7 +39,7 @@ const PostThoughtForm: React.FC<PostThoughtProps> = ({ userId, onNewMessage }) =
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white overflow-hidden sm:rounded-lg py-8 px-4 shadow-lg"
+      className="bg-white overflow-hidden sm:rounded-lg py-4 px-4 shadow-lg"
     >
       <div className="w-full mb-4">
         <textarea
@@ -47,11 +47,11 @@ const PostThoughtForm: React.FC<PostThoughtProps> = ({ userId, onNewMessage }) =
           value={messageContent}
           onChange={(e) => setMessageContent(e.target.value)}
           placeholder="What’s happening?"
-          className="w-full p-4 text-lg border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 resize-none"
+          className="w-full p-4 text-xl border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 resize-none"
           rows={3}
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-4 flex ">
         <label
           htmlFor="userId"
           className="text-sm font-semibold"
@@ -63,7 +63,7 @@ const PostThoughtForm: React.FC<PostThoughtProps> = ({ userId, onNewMessage }) =
           id="userId"
           value={userId}
           readOnly
-          className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2"
+          className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2 flex gap-2 ml-3"
         />
       </div>
       <button

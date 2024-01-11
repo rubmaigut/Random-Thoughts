@@ -1,7 +1,7 @@
 import { Session, User } from "./interfaces";
 
 export const mockUser: User = {
-  id: "maidelinrubio",
+  id: "@maidelinRubio",
   firstName: "Maidelin J",
   lastName: "Rubio",
   emailAddresses: [

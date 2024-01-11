@@ -69,6 +69,16 @@ export function UserDetails() {
                     priority
                   />
                 </dd>
+                <dt className="text-sm font-semibold mt-1">Trend in Sweden</dt>
+                <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                  #Dotnet
+                </dd>
+                <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                  #SaltEvent
+                </dd>
+                <dd className="mt-1 text-sm text-gray-600 sm:mt-0 sm:col-span-2">
+                  #Winter2023
+                </dd>
               </div>
             )}
           </dl>

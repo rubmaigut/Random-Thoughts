@@ -7,3 +7,10 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  max-width: 1900px;
+  margin: auto;
+}
