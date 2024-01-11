@@ -2,18 +2,27 @@
 
 import React, { useState } from "react";
 import { postMessage } from "../app/helpers/apiService"; // Adjust the import path
+import { ThoughtCard } from "./ThoughtList";
 
 interface PostThoughtProps {
   userId: string;
+  onNewMessage: (newMessage: ThoughtCard) => void
 }
 
-const PostThoughtForm: React.FC<PostThoughtProps> = ({ userId }) => {
+const PostThoughtForm: React.FC<PostThoughtProps> = ({ userId, onNewMessage }) => {
   const [messageContent, setMessageContent] = useState("");
+  const newId = `id-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+
 
   const handlePostMessage = async (messageContent: string) => {
     try {
-      const newMessage = { ThoughtContent: messageContent, UserId: userId };
+      const newMessage: ThoughtCard =
+      { id:newId,
+        thoughtContent: messageContent, 
+        userId: userId, 
+        likes: 0};
       await postMessage(newMessage);
+      onNewMessage(newMessage)
     } catch (error) {
       console.error("Error posting message", error);
     }

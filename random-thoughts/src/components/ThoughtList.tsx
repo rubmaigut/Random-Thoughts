@@ -3,21 +3,18 @@
 import React, { useEffect, useState } from 'react';
 import { getMessages } from '@/app/helpers/apiService';
 
-interface ThoughtCard {
-  id: string;
+ export interface ThoughtCard {
+  id: string
   thoughtContent: string;
   likes: number;
   userId: string;
 }
 
-const MessagesList: React.FC = () => {
-  const [messages, setMessages] = useState<ThoughtCard[]>([]);
+interface MessagesListProps {
+  messages: ThoughtCard[]
+}
 
-  useEffect(() => {
-    getMessages()
-      .then(data => setMessages(data))
-      .catch(error => console.error('Error fetching messages:', error));
-  }, []);
+const MessagesList: React.FC<MessagesListProps> = ({ messages }) => {
 
   return (
     <div className="mt-4 space-y-4">

@@ -1,21 +1,29 @@
+"use client";
+
 import { UserDetails } from "./dashboard/details";
-import ThoughtList from "@/components/ThoughtList";
+import ThoughtList, { ThoughtCard } from "@/components/ThoughtList";
 import { mockUser } from "./helpers/mockData";
 import PostThoughtForm from "../components/PostThoughtForm";
+import { useEffect, useState } from "react";
+import { getMessages } from "./helpers/apiService";
 
 
-export default async function DashboardPage() {
+export default function DashboardPage() {
+  const [messages, setMessages] = useState<ThoughtCard[]>([]);
   const user = mockUser;
-  const isUserLoggedIn = user != null;
 
-  if (!isUserLoggedIn) {
-    console.log("Redirecting to home page");
-    return null;
-  }
+  useEffect(() => {
+    getMessages()
+      .then(data => setMessages(data))
+      .catch(error => console.error('Error fetching messages:', error));
+  }, []);
+
+  const handleNewMessage = (newMessage: ThoughtCard) => {
+    setMessages(prevMessages => [...prevMessages, newMessage]);
+  };
   
   return (
     <div className="px-8 py-12 sm:py-16 md:px-20">
-      {user && (
         <>
           <h1 className="text-3xl font-semibold text-black">
             👋 Hi, {user.firstName || `Stranger`}
@@ -29,11 +37,10 @@ export default async function DashboardPage() {
                 New Thought
               </h3>
             </div>
-            <PostThoughtForm userId={user.firstName || "Developer"} />
-            <ThoughtList />
+            <PostThoughtForm userId={user.firstName || "Developer"} onNewMessage={handleNewMessage}   />
+            <ThoughtList messages= {messages} />
           </div>
         </>
-      )}
     </div>
   );
 }
