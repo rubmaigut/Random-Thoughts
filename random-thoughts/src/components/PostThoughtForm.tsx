@@ -30,7 +30,7 @@ const PostThoughtForm: React.FC<PostThoughtProps> = ({ userId }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white overflow-hidden sm:rounded-lg p-8 shadow-lg"
+      className="bg-white overflow-hidden sm:rounded-lg py-8 px-4 shadow-lg"
     >
       <div className="w-full mb-4">
         <textarea
