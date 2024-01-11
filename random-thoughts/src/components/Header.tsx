@@ -34,9 +34,6 @@ const Header: FC = () => {
         </div>
       )}
   </header>
-
-
-
   );
 };
 
